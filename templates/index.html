@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Análisis de CURP</title>
+    <style>
+        /* Estilos básicos */
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        h1 { color: #333; }
+        form { margin-bottom: 20px; }
+        label, input, button { font-size: 1rem; }
+        input[type="text"] { padding: 5px; width: 200px; }
+        button { padding: 5px 10px; background-color: #40E0D0; color: white; cursor: pointer; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #40E0D0; color: white; }
+    </style>
+</head>
+<body>
+
+<h1>Análisis de CURP</h1>
+<form method="POST" action="/analizar">
+    <label for="curp">Ingrese CURP:</label>
+    <input type="text" id="curp" name="curp" maxlength="18" required>
+    <button type="submit">Analizar</button>
+</form>
+
+{% if curp %}
+    <h2>Resultados del análisis para: {{ curp }}</h2>
+    <p><strong>Validez:</strong> </p>
+    {% if errores %}
+        <ul>
+            {% for error in errores %}
+            <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <table>
+        <tr>
+            <th>Token</th>
+            <th>Descripción</th>
+        </tr>
+        {% for token in tokens %}
+        <tr>
+            <td>{{ token.Token }}</td>
+            <td>{{ token.Tipo }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+{% endif %}
+
+</body>
+</html>
